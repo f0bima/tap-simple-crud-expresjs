@@ -1,7 +1,11 @@
 import { CButton, CForm, CFormInput, CFormLabel } from "@coreui/react";
 import { useEffect, useState } from "react";
+import useToastContext from "../hooks/useToastContext";
+import { userRepository } from "../infrastructure/repository/UserRepository";
 
 const UserForm = ({ selectedUser, onFormSubmit, onReset, onSuccess }) => {
+  const { showToast } = useToastContext();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -31,7 +35,25 @@ const UserForm = ({ selectedUser, onFormSubmit, onReset, onSuccess }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // please submit from url backend
+
+    const isUpdateMethod = selectedUser;
+
+    const method = isUpdateMethod
+      ? userRepository.updateUser({ id: selectedUser.id, data: formData })
+      : userRepository.createUser(formData);
+
+    method
+      .then((userResponse) => {
+        const successMessage = isUpdateMethod
+          ? `Success update ${selectedUser.id}`
+          : `Success create user ${userResponse.name}`;
+        showToast({ message: successMessage });
+        onFormSubmit();
+        resetForm();
+      })
+      .catch((error) => {
+        showToast({ message: error.message, isSuccess: false });
+      });
   };
 
   const resetForm = () => {
@@ -39,6 +61,7 @@ const UserForm = ({ selectedUser, onFormSubmit, onReset, onSuccess }) => {
       name: "",
       email: "",
       age: "",
+      bod: "",
     });
   };
 
@@ -99,7 +122,7 @@ const UserForm = ({ selectedUser, onFormSubmit, onReset, onSuccess }) => {
         <CButton type="submit" color="primary">
           {selectedUser ? "Update" : "Submit"}
         </CButton>
-        <CButton type="button" color="secondary">
+        <CButton type="button" color="secondary" onClick={handleReset}>
           Reset
         </CButton>
       </CForm>

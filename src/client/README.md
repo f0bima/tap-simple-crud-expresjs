@@ -68,3 +68,63 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+1. Form Submit button not working => UserForm
+2. Fetch user not implement => UserList
+3. User Service type
+
+```js
+createUser(name, email, age, bod) {
+  const id = `Data ${userCounter++}`
+  const user = new User(id, nama, email, ages, bod);
+  return UserRepositories.create(user);
+}
+```
+
+4. typo emails
+
+```js
+class User {
+  constructor(id, name, email, age, bod) {
+    this.id = id;
+    this.name = name;
+    this.emails = email;
+    this.age = age;
+    this.bod = bod;
+  }
+}
+```
+
+5. reset form
+
+```js
+<CButton type="button" color="secondary" onClick={handleReset}>
+  Reset
+</CButton>
+```
+
+6. refactor delete user
+
+```js
+const handleDelete = (id) => {
+  userRepository
+    .deleteUser({ id })
+    .then((data) => {
+      setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));
+    })
+    .catch((error) => {
+      console.error("Error:", error.message);
+    });
+};
+```
+
+7. reset bod
+
+```js
+setFormData({
+  name: "",
+  email: "",
+  age: "",
+  bod: "",
+});
+```

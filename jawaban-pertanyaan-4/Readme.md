@@ -34,5 +34,5 @@ git checkout -b hotfix/fix-new-bug
 1. Update kode lokal secara rutin dengan branch remote development
 2. Membuat branch per fitur
 3. Menghindari mengedit file yang sama (banyak orang mengedit file yang sama)
-4. Jika conflict tidak bisa dihindarkan, gunakan tools merge biasanya editor modern mempunyai fitur untuk mempermudah menyelesaikan conflict
+4. Gunakan tools merge jika conflict tidak bisa dihindarkan, biasanya editor modern mempunyai fitur untuk mempermudah menyelesaikan conflict
 5. Segera review pull request untuk meminimalisir potensi terjadinya conflict, karena banyak perubahan di branch lain

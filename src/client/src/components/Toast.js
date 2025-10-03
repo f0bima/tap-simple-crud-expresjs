@@ -1,10 +1,6 @@
 import { CToast, CToastBody, CToastHeader } from "@coreui/react";
 
 const Toast = ({ message, isSuccess = true }) => {
-  // const color = useMemo(() => {
-  //   return isSuccess ? "#007aff" : "#f00";
-  // }, [isSuccess]);
-
   return (
     <CToast autohide={true}>
       <CToastHeader closeButton>
